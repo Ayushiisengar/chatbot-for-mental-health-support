@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sakhi Chat</title>
+    <link rel="stylesheet" href="/styles/global.css" />
+
+    <link rel="stylesheet" href="/styles/chatbot.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Page Loader Spinner -->
+    <div id="page-loader">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <button class="recent-chats" title="View Recent Chats">
+          Recent Chats
+        </button>
+        <div class="recent-chats-panel">
+          <h3 style="color: white"></h3>
+          <ul id="session-list"></ul>
+        </div>
+
+        <button class="delete-all" title="Delete All Sessions">🗑️</button>
+        <div class="user-box">
+          <p>Welcome back,<br /><strong id="username-display">User!</strong></p>
+        </div>
+      </aside>
+
+      <!-- Main Chat Area -->
+      <main class="chat-section">
+        <!-- Header -->
+        <header class="chat-header">
+          <div class="header-left">
+            <a href="/choose.html" class="back-button">← Back</a>
+          </div>
+          <div class="header-center">
+            <h1>Sakhi!</h1>
+            <p>Your personal wellness companion.<br />Let’s chat!</p>
+          </div>
+          <div class="chat-controls">
+            <button class="new-chat">New Chat</button>
+            <button class="delete-session" title="Delete This Session">
+              🗑️
+            </button>
+          </div>
+        </header>
+
+        <!-- Chat Window -->
+        <div class="chat-window" id="chat-window">
+          <!-- Messages will appear here -->
+        </div>
+
+        <!-- Input Box -->
+        <div class="chat-input">
+          <input type="text" id="user-input" placeholder="Type..." />
+          <div class="icons">
+            <button title="Attach">📎</button>
+            <button title="Send" id="send-btn">➤</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- JavaScript to handle chat -->
+    <script>
+      let currentSessionId = null;
+
+      window.addEventListener("DOMContentLoaded", async () => {
+        try {
+          const res = await fetch("/get_user", {
+            method: "GET",
+            credentials: "include",
+          });
+          const data = await res.json();
+          if (data.username) {
+            document.getElementById("username-display").textContent =
+              data.username;
+          }
+        } catch (error) {
+          console.error("Failed to load username:", error);
+        }
+        loadSessions();
+      });
+
+      const inputBox = document.getElementById("user-input");
+      const sendButton = document.getElementById("send-btn");
+      const chatWindow = document.getElementById("chat-window");
+
+      function appendMessage(sender, text) {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = sender === "user" ? "user-message" : "bot-message";
+        msgDiv.textContent = text;
+        chatWindow.appendChild(msgDiv);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+
+      sendButton.addEventListener("click", async () => {
+        const message = inputBox.value.trim();
+        if (!message) return;
+
+        appendMessage("user", message);
+        inputBox.value = "";
+
+        const thinkingBubble = document.createElement("div");
+        thinkingBubble.className = "bot-message thinking";
+        thinkingBubble.innerHTML = `
+    <span class="thinking-text">Sakhi is thinking</span>
+    <span class="dot-container">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </span>
+  `;
+        chatWindow.appendChild(thinkingBubble);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        try {
+          const response = await fetch("/api/ask", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+              question: message,
+              session_id: currentSessionId,
+            }),
+          });
+
+          const data = await response.json();
+
+          // Replace the "thinking..." message with the actual response
+          thinkingBubble.innerHTML =
+            data.answer || "Sorry, I couldn’t understand that.";
+          loadSessions();
+        } catch (error) {
+          thinkingBubble.innerHTML =
+            "Something went wrong. Please try again later.";
+        }
+      });
+
+      inputBox.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendButton.click();
+      });
+
+      const recentChatsBtn = document.querySelector(".recent-chats");
+      const newChatBtn = document.querySelector(".new-chat");
+      const deleteSessionBtn = document.querySelector(".delete-session");
+      const deleteAllBtn = document.querySelector(".delete-all");
+      const sessionList = document.getElementById("session-list");
+
+      function loadSessions() {
+        fetch("/api/get_sessions", { credentials: "include" })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Loaded sessions:", data);
+            sessionList.innerHTML = "";
+            data.forEach((session) => {
+              const li = document.createElement("li");
+              li.innerHTML = `<strong>${
+                session.preview || "Session"
+              }</strong><br><small>${session.last_activity}</small>`;
+              li.style.padding = "8px";
+              li.style.cursor = "pointer";
+              li.style.borderBottom = "1px solid #444";
+
+              li.addEventListener("click", () => loadChat(session.session_id));
+              sessionList.appendChild(li);
+            });
+          })
+          .catch((err) => console.error("Error loading sessions:", err));
+      }
+
+      function loadChat(sessionId) {
+        currentSessionId = sessionId;
+        fetch(`/api/get_chats?session_id=${sessionId}`, {
+          credentials: "include",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            chatWindow.innerHTML = "";
+            data.forEach((msg) => appendMessage(msg.sender, msg.message));
+          })
+          .catch((err) => console.error("Error loading chat:", err));
+      }
+
+      newChatBtn.addEventListener("click", async () => {
+        try {
+          const res = await fetch("/api/new_session", {
+            method: "POST",
+            credentials: "include",
+          });
+          const data = await res.json();
+          currentSessionId = data.session_id;
+          chatWindow.innerHTML = "";
+          loadSessions();
+        } catch (error) {
+          console.error("Failed to start new chat:", error);
+          alert("Could not start a new chat.");
+        }
+      });
+
+      deleteSessionBtn.addEventListener("click", async () => {
+        if (!currentSessionId || !confirm("Delete this session?")) return;
+        try {
+          const res = await fetch(
+            `/api/delete_session?session_id=${currentSessionId}`,
+            {
+              method: "DELETE",
+              credentials: "include",
+            }
+          );
+          const result = await res.json();
+          if (result.message) {
+            chatWindow.innerHTML = "";
+            currentSessionId = null;
+            loadSessions();
+            alert("Session deleted.");
+          } else {
+            alert("Failed to delete session.");
+          }
+        } catch (error) {
+          console.error("Error deleting session:", error);
+          alert("Something went wrong.");
+        }
+      });
+
+      deleteAllBtn.addEventListener("click", async () => {
+        if (!confirm("Are you sure you want to delete ALL your chat sessions?"))
+          return;
+        try {
+          const res = await fetch("/api/delete_chats", {
+            method: "DELETE",
+            credentials: "include",
+          });
+          const result = await res.json();
+          if (result.message) {
+            chatWindow.innerHTML = "";
+            sessionList.innerHTML = "";
+            currentSessionId = null;
+            alert("All sessions deleted.");
+          } else {
+            alert("Failed to delete.");
+          }
+        } catch (error) {
+          console.error("Error deleting all sessions:", error);
+          alert("Something went wrong.");
+        }
+      });
+
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("page-loader");
+        if (loader) {
+          loader.style.transition = "opacity 0.4s ease";
+          loader.style.opacity = "0";
+          setTimeout(() => (loader.style.display = "none"), 400);
+        }
+      });
+    </script>
+  </body>
+</html>

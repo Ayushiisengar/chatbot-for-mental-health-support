@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakhi - Your Mental Health Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: '#B0C4DE',
+          secondary: '#E6E6FA'
+        },
+        borderRadius: {
+          'none': '0px',
+          'sm': '4px',
+          DEFAULT: '8px',
+          'md': '12px',
+          'lg': '16px',
+          'xl': '20px',
+          '2xl': '24px',
+          '3xl': '32px',
+          'full': '9999px',
+          'button': '8px'
+        }
+      }
+    }
+  }
+</script>
+
+
+    <link rel="stylesheet" href="styles/landing.css">
+
+</head>
+<body class="bg-white text-gray-800">
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 w-full bg-white bg-opacity-95 backdrop-blur-sm shadow-sm z-50">
+        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+            <a href="#" class="font-['Pacifico'] text-2xl text-primary-800">Sakhi</a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-gray-700 hover:text-primary transition duration-300">About</a>
+                <a href="#care" class="text-gray-700 hover:text-primary transition duration-300">Care</a>
+            </nav>
+            <div class="flex items-center">
+                <a href="index.html">
+                    <button
+                        class="bg-secondary text-gray-800 px-6 py-2 rounded-button hover:bg-opacity-80 transition duration-300 whitespace-nowrap">Login</button>
+                    <button class="md:hidden ml-4 w-10 h-10 flex items-center justify-center">
+                        <i class="ri-menu-line text-gray-700 ri-lg"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24 hero-gradient"
+        style="background-image: url('/assets/bg.png'); background-size: cover; background-position: center;">
+        <div class="container mx-auto px-4 w-full">
+            <div class="max-w-3xl mx-auto md:mx-0 md:ml-16 lg:ml-32">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">Your Mental Health Companion
+                </h1>
+                <p class="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl">Sakhi provides a safe space for your mental
+                    wellbeing journey. We're here to support, guide, and walk alongside you every step of the way.</p>
+            </div>
+        </div>
+    </section>
+    <!-- care Section -->
+    <section id="care" class="py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">Sakhi's Care</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- AI Chatbot -->
+                <div class="care-box bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
+                    data-target="chatbot.html">
+                    <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mb-6">
+                        <i class="ri-robot-line text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">AI Chatbot</h3>
+                    <p class="text-gray-600">24/7 supportive companion ready to listen, chat, and guide you through
+                        difficult moments. Our AI is trained to provide empathetic and helpful responses.</p>
+                </div>
+                <!-- Mood Tracking -->
+                <div class="care-box bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
+                    data-target="moodtracker.html">
+                    <div class="w-16 h-16 flex items-center justify-center bg-secondary rounded-full mb-6">
+                        <i class="ri-mental-health-line text-primary ri-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Mood Tracking</h3>
+                    <p class="text-gray-600">Monitor your emotional patterns over time with our intuitive mood tracking
+                        tools. Identify triggers and track your progress with detailed insights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16">About Sakhi</h2>
+            <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+                <div class="w-full md:w-1/2">
+                    <img src="/assets/about-illustration.jpg" alt="Supportive mental health illustration"
+                        class="w-full h-auto rounded-lg shadow-lg">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Your Trusted Companion</h3>
+                    <p class="text-gray-700 mb-6">Sakhi means "companion" in Sanskrit, and that's exactly what we aim to
+                        be on your mental health journey. We understand that everyone's path to wellbeing is unique and
+                        personal.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-secondary rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-heart-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium mb-2">Compassionate Support</h4>
+                                <p class="text-gray-600">Our approach is built on empathy, understanding, and
+                                    non-judgment. We're here to listen and support.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-secondary rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-shield-check-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium mb-2">Evidence-Based Resources</h4>
+                                <p class="text-gray-600">While not a substitute for professional help,
+                                    our resources are grounded in proven mental wellness principles.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div
+                                class="w-12 h-12 flex items-center justify-center bg-secondary rounded-full mr-4 flex-shrink-0">
+                                <i class="ri-lock-line text-primary ri-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium mb-2">Privacy & Confidentiality</h4>
+                                <p class="text-gray-600">Your privacy is paramount. All interactions with Sakhi are
+                                    secure and confidential.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Motivational Quote Section -->
+    <section class="py-16 bg-secondary bg-opacity-30">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <i class="ri-double-quotes-l text-primary ri-3x mb-6 opacity-50"></i>
+                <h2 class="quote-text text-3xl md:text-4xl lg:text-5xl font-medium text-gray-800 mb-6">You are not alone
+                    on this journey.</h2>
+                <p class="text-lg text-gray-700">Every step forward, no matter how small, is progress worth celebrating.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Video Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">Why Mental Health Matters</h2>
+                <p class="text-center text-gray-700 mb-12 max-w-3xl mx-auto">Understanding the importance of mental
+                    wellbeing is the first step toward a healthier, more balanced life.</p>
+                <div class="video-container shadow-lg mb-8">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/DxIDKZHW3-E"
+                        title="The Importance of Mental Health" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+                <p class="text-center text-gray-600 italic">This video explains how mental health affects every aspect
+                    of our lives and why self-care is essential.</p>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <a href="#" class="font-['Pacifico'] text-2xl text-white mb-4 inline-block">Sakhi</a>
+                <p class="text-gray-400">Your trusted companion on the journey to better mental health.</p>
+                <div class="border-t border-gray-700 mt-8 pt-8 text-gray-400">
+                    <p>&copy; 2025 Sakhi. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Crisis Helpline Banner -->
+    <div id="crisisBanner"
+        class="fixed bottom-0 left-0 w-full bg-red-500 text-white py-4 px-6 flex items-center justify-between crisis-banner z-50">
+        <div class="flex items-center">
+            <div class="w-10 h-10 flex items-center justify-center bg-white bg-opacity-20 rounded-full mr-4">
+                <i class="ri-phone-fill text-white ri-lg"></i>
+            </div>
+            <div>
+                <p class="font-medium">Feeling suicidal or in crisis?</p>
+                <p class="text-sm">You're not alone. Help is available 24/7.</p>
+            </div>
+        </div>
+        <div class="flex items-center">
+            <a href="tel:18005990019"
+                class="bg-white text-red-500 px-6 py-2 rounded-button font-medium hover:bg-opacity-90 transition duration-300 pulse whitespace-nowrap mr-4">Click
+                to Call</a>
+            <button id="closeBanner"
+                class="w-8 h-8 flex items-center justify-center bg-transparent hover:bg-white hover:bg-opacity-20 rounded-full">
+                <i class="ri-close-line text-white ri-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <script id="mobileMenuScript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuButton = document.querySelector('.ri-menu-line').parentElement;
+            const nav = document.querySelector('nav');
+            menuButton.addEventListener('click', function () {
+                if (nav.classList.contains('hidden')) {
+                    nav.classList.remove('hidden');
+                    nav.classList.add('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'w-full', 'bg-white', 'shadow-md', 'py-4', 'px-4', 'space-y-4');
+                    menuButton.querySelector('i').classList.remove('ri-menu-line');
+                    menuButton.querySelector('i').classList.add('ri-close-line');
+                } else {
+                    nav.classList.add('hidden');
+                    nav.classList.remove('flex', 'flex-col', 'absolute', 'top-full', 'left-0', 'w-full', 'bg-white', 'shadow-md', 'py-4', 'px-4', 'space-y-4');
+                    menuButton.querySelector('i').classList.add('ri-menu-line');
+                    menuButton.querySelector('i').classList.remove('ri-close-line');
+                }
+            });
+        });
+    </script>
+    <script id="crisisBannerScript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const closeBanner = document.getElementById('closeBanner');
+            const crisisBanner = document.getElementById('crisisBanner');
+            closeBanner.addEventListener('click', function () {
+                crisisBanner.style.transform = 'translateY(100%)';
+                setTimeout(() => {
+                    crisisBanner.style.display = 'none';
+                }, 500);
+            });
+        });
+    </script>
+    <script id="smoothScrollScript">
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        // Close mobile menu if open
+                        const nav = document.querySelector('nav');
+                        if (window.innerWidth < 768 && !nav.classList.contains('hidden')) {
+                            const menuButton = document.querySelector('.ri-close-line')?.parentElement;
+                            if (menuButton) menuButton.click();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            let isLoggedIn = false;
+
+            try {
+                const res = await fetch('/get_user');
+                const data = await res.json();
+                if (data.username) {
+                    isLoggedIn = true;
+                }
+            } catch (e) {
+                console.error('Error checking login status', e);
+            }
+
+            document.querySelectorAll('.care-box').forEach(box => {
+                box.addEventListener('click', function () {
+                    if (isLoggedIn) {
+                        const target = box.getAttribute('data-target');
+                        window.location.href = target;
+                    } else {
+                        alert("Please login first to access this care.");
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

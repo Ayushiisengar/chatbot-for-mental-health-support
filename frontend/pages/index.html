@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sakhi Login</title>
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/frontend/styles/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .tab-buttons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .tab-buttons button {
+        padding: 10px 20px;
+        border: none;
+        background: #eee;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 0 5px;
+        border-radius: 5px;
+        transition: background 0.3s;
+      }
+
+      .tab-buttons button.active {
+        background-color: #a24cc1;
+        color: white;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .input-group {
+        display: flex;
+        align-items: center;
+        background: #f2f2f2;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      .input-group .icon {
+        margin-right: 10px;
+        font-size: 18px;
+      }
+
+      button[type="submit"] {
+        padding: 12px;
+        background-color: #a24cc1;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Page Loader Spinner -->
+    <div id="page-loader">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="container">
+      <div class="left-panel">
+        <h1>WELCOME TO SAKHI</h1>
+        <p>Your friendly mental wellness companion</p>
+
+        <!-- Tabs -->
+        <div class="tab-buttons">
+          <button id="login-tab" class="active">Login</button>
+          <button id="signup-tab">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <form
+          id="login-form"
+          action="http://localhost:5000/login"
+          method="POST"
+        >
+          <div class="input-group">
+            <span class="icon">👤</span>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <span class="icon">🔒</span>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <button type="submit">Start Chatting</button>
+        </form>
+
+        <!-- Signup Form -->
+        <form
+          id="signup-form"
+          action="http://localhost:5000/signup"
+          method="POST"
+          style="display: none"
+        >
+          <div class="input-group">
+            <span class="icon">👤</span>
+            <input
+              type="text"
+              name="username"
+              placeholder="Choose Username"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <span class="icon">📧</span>
+            <input type="email" name="email" placeholder="Email" required />
+          </div>
+          <div class="input-group">
+            <span class="icon">🔒</span>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <span class="icon">🔒</span>
+            <input
+              type="password"
+              name="confirm_password"
+              placeholder="Confirm Password"
+              required
+            />
+          </div>
+          <button type="submit">Create Account</button>
+        </form>
+      </div>
+
+      <div class="right-panel">
+        <div class="chat-bubble">
+          <p id="typing-text">
+          </p>
+        </div>
+        <img src="/frontend/assets/bot.png" alt="Sakhi Bot" class="bot-img" />
+        <div class="light-icon">✨</div>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("page-loader");
+        if (loader) {
+          loader.style.transition = "opacity 0.4s ease";
+          loader.style.opacity = "0";
+          setTimeout(() => (loader.style.display = "none"), 400);
+        }
+      });
+
+      const loginTab = document.getElementById("login-tab");
+      const signupTab = document.getElementById("signup-tab");
+      const loginForm = document.getElementById("login-form");
+      const signupForm = document.getElementById("signup-form");
+
+      loginTab.addEventListener("click", () => {
+        loginTab.classList.add("active");
+        signupTab.classList.remove("active");
+        loginForm.style.display = "flex";
+        signupForm.style.display = "none";
+      });
+
+      signupTab.addEventListener("click", () => {
+        signupTab.classList.add("active");
+        loginTab.classList.remove("active");
+        signupForm.style.display = "flex";
+        loginForm.style.display = "none";
+      });
+      const message = `Hi, I’m Sakhi\nReady to talk\nwhenever\nyou are.`;
+      const typingEl = document.getElementById("typing-text");
+      let i = 0;
+
+      function typeWriter() {
+        if (i < message.length) {
+          typingEl.textContent += message.charAt(i);
+          i++;
+          setTimeout(typeWriter, 70); // adjust speed here
+        }
+      }
+
+      window.addEventListener("load", typeWriter);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Sakhi</title>
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/choose.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Page Loader Spinner -->
+    <div id="page-loader">
+      <div class="spinner"></div>
+    </div>
+    <div class="header">
+      <img src="/assets/bot.png" alt="Bot" class="bot-icon" />
+      <h1>Your AI Sakhi is here!</h1>
+      <a href="/index.html" class="logout-button">Logout</a>
+    </div>
+    <div class="mid-box">
+      <div class="subheading">
+        <h2>How can I assist you today?</h2>
+      </div>
+
+      <div class="options">
+        <a href="/chatbot.html">
+          <div class="card">
+            <img src="/assets/chatbot.png" alt="Chatbox Icon" />
+            <p><strong>Chatbox</strong></p>
+          </div>
+        </a>
+        <a href="/moodtracker.html">
+          <div class="card">
+            <img src="/assets/mood.png" alt="Mood Tracker Icon" />
+            <p><strong>Mood Tracker</strong></p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("page-loader");
+        if (loader) {
+          loader.style.transition = "opacity 0.4s ease";
+          loader.style.opacity = "0";
+          setTimeout(() => (loader.style.display = "none"), 400);
+        }
+      });
+    </script>
+  </body>
+</html>

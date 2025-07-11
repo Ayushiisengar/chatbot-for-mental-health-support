@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mood Tracker | Sakhi</title>
+  <link rel="stylesheet" href="/styles/global.css" />
+
+  <link rel="stylesheet" href="/styles/moodtracker.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="header">
+      <img src="/assets/bot.png" alt="Bot" class="bot-icon" />
+      <h1>Track Your Mood With Sakhi</h1>
+      <a href="/choose.html" class="back-button">Back</a>
+    </div>
+
+  <div class="main">
+    <div class="container">
+      <div class="mood-options">
+        <div class="mood-card" data-mood="Happy">
+          <img src="/assets/happy.png" alt="Happy" />
+          <p>Happy</p>
+        </div>
+        <div class="mood-card" data-mood="Neutral">
+          <img src="/assets/neutral.png" alt="Neutral" />
+          <p>Neutral</p>
+        </div>
+        <div class="mood-card" data-mood="Sad">
+          <img src="/assets/sad.png" alt="Sad" />
+          <p>Sad</p>
+        </div>
+        <div class="mood-card" data-mood="Angry">
+          <img src="/assets/angry.png" alt="Angry" />
+          <p>Angry</p>
+        </div>
+        <div class="mood-card" data-mood="Anxious">
+          <img src="/assets/anx.png" alt="Anxious" />
+          <p>Anxious</p>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitMood">Submit Mood</button>
+
+      <section class="mood-log">
+        <h2>My Mood Log</h2>
+        <table id="moodTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Mood</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const moodCards = document.querySelectorAll(".mood-card");
+    const moodTable = document.querySelector("#moodTable tbody");
+    const submitButton = document.getElementById("submitMood");
+    let selectedMood = null;
+
+    // Mood selection logic
+    moodCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        moodCards.forEach((c) => c.classList.remove("selected"));
+        card.classList.add("selected");
+        selectedMood = card.getAttribute("data-mood");
+      });
+    });
+
+    // Mood submission logic
+    submitButton.addEventListener("click", async () => {
+      if (!selectedMood) {
+        alert("Please select a mood before submitting.");
+        return;
+      }
+
+      const now = new Date();
+      const formattedDate = now.toLocaleString();
+
+      const newRow = document.createElement("tr");
+      newRow.innerHTML = `
+          <td>${formattedDate}</td>
+          <td>${selectedMood}</td>
+        `;
+      moodTable.appendChild(newRow);
+
+      try {
+        const response = await fetch("/api/log_mood", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mood: selectedMood }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          console.log(result.message);
+        } else {
+          console.error(result.error || "Unknown error");
+          alert(
+            "Failed to log mood: " + (result.error || "Try again later.")
+          );
+        }
+      } catch (error) {
+        console.error("Fetch error:", error);
+        alert("Failed to connect to the server. Please try again.");
+      }
+
+      moodCards.forEach((c) => c.classList.remove("selected"));
+      selectedMood = null;
+    });
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch('/api/get_moods', {
+          method: 'GET',
+          credentials: 'include'
+        });
+
+        const moodData = await response.json();
+
+        if (response.ok) {
+          moodData.forEach((entry) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${entry.timestamp}</td>
+                <td>${entry.mood}</td>
+              `;
+            moodTable.appendChild(row);
+          });
+        } else {
+          console.error("Failed to fetch moods:", moodData.error || "Unknown error");
+        }
+      } catch (error) {
+        console.error("Error loading moods:", error);
+      }
+    });
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('page-loader');
+      if (loader) {
+        loader.style.transition = 'opacity 0.4s ease';
+        loader.style.opacity = '0';
+        setTimeout(() => loader.style.display = 'none', 400);
+      }
+    });
+
+  </script>
+</body>
+
+</html>

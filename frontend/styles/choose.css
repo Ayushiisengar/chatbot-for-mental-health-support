@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Comfortaa", sans-serif;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.header {
+  background-image: url("/frontend/assets/purple.png");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding-left: 27px;
+  padding-top: 19px;
+}
+.mid-box {
+  flex: 1;
+  background-image: url('/assets/bg.png'); /* Change path if needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 40px 20px;
+  min-height: calc(100vh - 100px); /* adjust based on actual header height */
+}
+
+
+.bot-icon {
+  width: 70px;
+  height: auto;
+  margin-right: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+.header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.subheading {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.subheading h2 {
+  font-size: 2.6rem;
+  color: #222;
+}
+
+.options {
+  display: flex;
+  gap: 3rem; /* increased gap */
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  max-width: 1200px;
+}
+
+.options a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.card {
+  background: #e5ddff;
+  padding: 2rem; /* increased padding */
+  border-radius: 18px; /* slightly more rounded */
+  width: 220px; /* bigger width */
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.08); /* slightly stronger hover effect */
+}
+
+.card img {
+  width: 80px; /* bigger icon */
+  margin-bottom: 1rem;
+}
+
+.card p {
+  font-size: 1.3rem; /* larger text */
+  color: #111;
+  font-weight: 600;
+}
+
+.logout-button {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  background: linear-gradient(90deg, #7b2ff7, #f107a3);
+  color: white;
+  padding: 10px 18px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease;
+}
+
+.logout-button:hover {
+  background: linear-gradient(90deg, #5a1bb7, #c2007d);
+}
