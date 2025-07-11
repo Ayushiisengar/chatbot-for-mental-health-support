@@ -132,7 +132,9 @@ cd backend
 python app.py
 
 # 6. Visit the app in your browser
-http://localhost:5000```
+http://localhost:5000
+
+```
 
 
 ## 🔗 RAG Model Download
