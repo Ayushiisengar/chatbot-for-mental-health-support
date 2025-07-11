@@ -134,6 +134,8 @@ python app.py
 # 6. Visit the app in your browser
 http://localhost:5000
 
+'''
+
 ## 🔗 RAG Model Download
 
 📁 **Google Drive Link to RAG_Model Folder**  
