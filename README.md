@@ -140,7 +140,7 @@ http://localhost:5000
 ## 🔗 RAG Model Download
 
 📁 **Google Drive Link to RAG_Model Folder**  
-👉 [Insert your RAG Model Google Drive link here]  
+👉 https://drive.google.com/drive/folders/1G2dA0wd9-C5XgxZfU4X6UTJq-2oc8wFl?usp=drive_link
 
 📂 **After downloading**, place the extracted folder at the following path inside the project: backend/RAG_Model/
 
@@ -149,10 +149,10 @@ http://localhost:5000
 
 ## 🙋‍♀️ Developed By
 
-**Ayushi Sengar**  
-_Marksman Internship Project, 2025_
+**Ayushi Sengar, Nisha Rai, Angel, Raghuvendra Pratap Singh, Kunal Sharma, Rishmita Tamuli**  
+_Marksman Technologies Pvt. Ltd. Internship Project
 
-👨‍🏫 **Mentored by:** [Your Mentor’s Name]
+👨‍🏫 **Mentored by:** Mr. Vishal Bisht
 
 ---
 
