@@ -19,7 +19,7 @@ def serve_index():
     return send_from_directory('../frontend/pages', 'landing.html')
 
 # Connect to MongoDB
-client = MongoClient('MONGO_URI=mongodb+srv://<your_username>:<your_password>@cluster0.pq9lapw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+client = MongoClient('MONGO_URI') #here replcace your mongodb_uri
 db = client['mentalhealth']
 users_collection = db['users']
 
